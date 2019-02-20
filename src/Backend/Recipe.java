@@ -26,3 +26,10 @@ class ManualRecipe extends Recipe{
 
     }
 }
+
+class ScanRecipe extends Recipe{
+
+    public ScanRecipe(String name, String category, String a){
+        super(name, category);
+    }
+}
