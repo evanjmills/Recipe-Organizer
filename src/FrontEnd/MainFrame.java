@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
 
                 }
                 else{
-                    controller.search(text);
+                    //controller.search(text);
                 }
             }
         });

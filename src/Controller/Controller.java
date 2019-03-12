@@ -21,12 +21,9 @@ public class Controller {
 
     public ArrayList<Recipe> filter(ArrayList<String> filters){return dataBase.filter(filters);}
 
-    public void load(ArrayList<Recipe> data){
-        if(!dataBase.getAll().isEmpty()){
-            dataBase = new DataBase(data);
-        }
-        else{
-
-        }
+    public void load(String path){
+       dataBase.load(path);
     }
+
+    public void save(String path){dataBase.save(path);}
 }

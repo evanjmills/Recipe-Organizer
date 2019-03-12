@@ -1,5 +1,7 @@
 package Backend;
 
+import javax.imageio.IIOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -57,4 +59,42 @@ public class DataBase {
         return db;
     }
 
+    public void load(String path){
+        try{
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            db = (ArrayList<Recipe>) ois.readObject();
+
+            ois.close();
+            fis.close();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Cannot find file: " + path);
+        }
+        catch (IOException e){
+            System.out.println("Cannot load data from file: " + path);
+        }
+        catch (ClassNotFoundException e){
+            System.out.println("No valid data found in file: " + path);
+        }
+    }
+
+    public void save(String path){
+        try{
+            FileOutputStream fos = new FileOutputStream(path);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Cannot  find/create file: " + path);
+        }
+        catch (IOException e){
+            System.out.println("Cannot save to file: " + path);
+        }
+    }
 }
