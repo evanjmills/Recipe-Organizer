@@ -11,11 +11,13 @@ public class ToolBar extends JComponent{
     private JButton addBtn;
     private JButton searchBtn;
     private JTextField searchTxt;
+    private Listener listener;
 
     public ToolBar(){
         addBtn = new JButton("Add Recipe");
         searchBtn = new JButton("Search");
         searchTxt = new JTextField(30);
+        JLabel searchLbl = new JLabel("Search: ");
 
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createCompoundBorder(new EtchedBorder(), new EmptyBorder(5,5,5,5)));
@@ -34,26 +36,34 @@ public class ToolBar extends JComponent{
         gc.anchor = GridBagConstraints.EAST;
         gc.weightx = 1;
 
-        add(searchTxt, gc);
+        add(searchLbl, gc);
 
         gc.gridx ++;
         gc.weightx = .01;
         gc.anchor = GridBagConstraints.WEST;
+
+        add(searchTxt, gc);
+
+        gc.gridx ++;
 
         add(searchBtn, gc);
 
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                listener.textPassed("add");
             }
         });
 
         searchBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                listener.textPassed(searchTxt.getText());
             }
         });
+    }
+
+    public void setListener(Listener _listener){
+        listener = _listener;
     }
 }

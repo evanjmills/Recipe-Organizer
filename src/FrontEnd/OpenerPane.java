@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class OpenerPane extends JComponent {
     private JList rpcList;
-    private OpenerBtns btns;
     private JLabel openerLbl;
+    private Listener listener;
 
     public OpenerPane(){
         setup();
@@ -20,9 +20,21 @@ public class OpenerPane extends JComponent {
     }
 
     private void setup(){
-        btns = new OpenerBtns();
+        OpenerBtns btns = new OpenerBtns();
         rpcList = new JList();
         openerLbl = new JLabel("Showing Recipes for:");
+
+        btns.setListener(new Listener() {
+            @Override
+            public void textPassed(String text) {
+                if(text.equals("Open")){
+
+                }
+                else {
+                    listener.textPassed(text);
+                }
+            }
+        });
 
         setLayout(new BorderLayout());
 
@@ -30,12 +42,17 @@ public class OpenerPane extends JComponent {
         add(btns, BorderLayout.SOUTH);
         add(openerLbl, BorderLayout.NORTH);
     }
+
+    public void setListener(Listener _listener){
+        listener = _listener;
+    }
 }
 
 class OpenerBtns extends JComponent{
     private JButton openBtn;
     private JButton deleteBtn;
     private JButton editBtn;
+    private Listener listener;
 
     public OpenerBtns(){
         openBtn = new JButton("Open");
@@ -45,21 +62,21 @@ class OpenerBtns extends JComponent{
         openBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                listener.textPassed("open");
             }
         });
 
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                listener.textPassed("delete");
             }
         });
 
         editBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                listener.textPassed("edit");
             }
         });
 
@@ -70,5 +87,9 @@ class OpenerBtns extends JComponent{
         add(openBtn, gc);
         add(editBtn,gc);
         add(deleteBtn,gc);
+    }
+
+    public void setListener(Listener _listener){
+        listener = _listener;
     }
 }

@@ -2,7 +2,6 @@ package FrontEnd;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,10 +11,11 @@ public class FilterPane extends JPanel {
     private ArrayList<String> filters;
     private ArrayList<JCheckBox> boxes;
     private GridBagConstraints gc;
+    private Listener listener;
 
     public FilterPane(){
-        filters = new ArrayList<String>();
-        boxes = new ArrayList<JCheckBox>();
+        filters = new ArrayList<>();
+        boxes = new ArrayList<>();
         gc = new GridBagConstraints();
 
         setUp();
@@ -42,7 +42,7 @@ public class FilterPane extends JPanel {
             newBox.addActionListener(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    getChecked();
                 }
             });
 
@@ -65,5 +65,17 @@ public class FilterPane extends JPanel {
 
         add(boxes.get(boxes.size() - 1), gc);
 
+    }
+
+    public void setListener(Listener _listener){
+        listener = _listener;
+    }
+
+    private void getChecked(){
+        for(JCheckBox temp : boxes){
+            if(temp.isSelected()){
+                listener.textPassed(temp.getText());
+            }
+        }
     }
 }
