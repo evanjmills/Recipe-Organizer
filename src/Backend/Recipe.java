@@ -3,9 +3,11 @@ package Backend;
 import java.util.ArrayList;
 
 public abstract class Recipe {
-    String name;
+    private String name;
 
-    String category;
+   private String category;
+
+   private int dbIndex;
 
     public Recipe(String givenName, String givenCategory){
         name = givenName;
@@ -18,6 +20,14 @@ public abstract class Recipe {
 
     public String getCategory(){
         return category;
+    }
+
+    public int getDbIndex(){
+        return dbIndex;
+    }
+
+    public void setDbIndex(int idx){
+        dbIndex = idx;
     }
 }
 

@@ -36,7 +36,10 @@ public class MainFrame extends JFrame {
 
                 }
                 else{
-                    //controller.search(text);
+                    if(!text.equals("")){
+                        System.out.println("search");
+                        controller.search(text, toolBar.getSelected().equals("Contains"));
+                    }
                 }
             }
         });

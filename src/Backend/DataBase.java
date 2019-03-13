@@ -1,6 +1,6 @@
 package Backend;
 
-import javax.imageio.IIOException;
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -27,16 +27,27 @@ public class DataBase {
         }
 
         db.add(index, rpc);
+        for(int x = index + 1; x < db.size(); x++){
+            db.get(x).setDbIndex(db.get(x).getDbIndex() + 1);
+        }
     }
 
     public ArrayList<Recipe> search(String key, Boolean contains){
         ArrayList<Recipe> ret = new ArrayList<>();
 
         if(contains){
-
+            for(Recipe temp: db){
+                if(temp.getName().contains(key)){
+                    ret.add(temp);
+                }
+            }
         }
         else{
-
+            for(Recipe temp: db){
+                if(temp.getName().equalsIgnoreCase(key)){
+                    ret.add(temp);
+                }
+            }
         }
         return ret;
     }
@@ -73,10 +84,12 @@ public class DataBase {
             System.out.println("Cannot find file: " + path);
         }
         catch (IOException e){
-            System.out.println("Cannot load data from file: " + path);
+            String msg = "Cannot load data from file: " + path;
+            JOptionPane.showMessageDialog(new JFrame("Error"), msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         catch (ClassNotFoundException e){
-            System.out.println("No valid data found in file: " + path);
+            String msg = "No valid data found in file: " + path;
+            JOptionPane.showMessageDialog(new JFrame("Error"), msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -91,10 +104,16 @@ public class DataBase {
             fos.close();
         }
         catch (FileNotFoundException e){
-            System.out.println("Cannot  find/create file: " + path);
+            String msg = "Cannot  find/create file: " + path;
+            JOptionPane.showMessageDialog(new JFrame("Error"), msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         catch (IOException e){
-            System.out.println("Cannot save to file: " + path);
+            String msg = "Cannot save to file: " + path;
+            JOptionPane.showMessageDialog(new JFrame("Error"), msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void delete(int index){
+        db.remove(index);
     }
 }
