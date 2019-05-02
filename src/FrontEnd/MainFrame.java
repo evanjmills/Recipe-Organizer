@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import Controller.Controller;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +11,29 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class MainFrame extends JFrame {
-
+    /**
+     * the toolbar for the overall program
+     */
     private ToolBar toolBar;
+
+    /**
+     * the filterpane for the overall program
+     */
     private FilterPane filterPane;
+
+    /**
+     * the openerpane for the overall program
+     */
     private OpenerPane opener;
+
+    /**
+     * the controller for communication with the database
+     */
     private Controller controller;
 
+    /**
+     * creates a new mainframe for the overall program
+     */
     public MainFrame(){
         toolBar = new ToolBar();
         filterPane = new FilterPane();
@@ -33,7 +51,18 @@ public class MainFrame extends JFrame {
             @Override
             public void textPassed(String text) {
                 if(text.equals("add")){
+                    Object[] options = {"Manual", "Scan", "Cancel"};
+                    int input = JOptionPane.showOptionDialog(new JFrame(), "What type of recipe would you like"
+                            + "to enter?", "Type?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                            null, options, options[2]);
 
+                    if(input == 0){
+                        new ManualEditor();
+
+                    }
+                    else if(input == 1) {
+
+                    }
                 }
                 else{
                     if(!text.equals("")){
@@ -48,7 +77,7 @@ public class MainFrame extends JFrame {
             @Override
             public void textPassed(String text) {
                 if(text.equals("delete")){
-
+                    controller.delete(0);
                 }
                 else if(text.equals("edit")){
 
@@ -70,6 +99,10 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * crates the menubar for the program
+     * @return a menubar for the program
+     */
     private JMenuBar createMenu(){
         JMenuBar ret = new JMenuBar();
 

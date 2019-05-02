@@ -8,16 +8,30 @@ import java.util.ArrayList;
  * Temporary class to act as a database for early development
  */
 public class DataBase {
+    /**
+     * an ArrayList to represent a database
+     */
     private ArrayList<Recipe> db;
 
+    /**
+     * creates an empty database
+     */
     public DataBase(){
         db = new ArrayList<Recipe>();
     }
 
+    /**
+     * creates a database filled with the list of recipes
+     * @param a the list to populate the database with
+     */
     public DataBase(ArrayList<Recipe> a){
         db = a;
     }
 
+    /**
+     * adds a recipe to the database
+     * @param rpc the recipe to be added
+     */
     public void add(Recipe rpc){
         int index = 0;
         for(int x = 0; x < db.size(); x++){
@@ -32,6 +46,12 @@ public class DataBase {
         }
     }
 
+    /**
+     * searches the database for the recipes that either match the key word or that contains the keyword
+     * @param key the key that we are searching for
+     * @param contains weather or not we are searching for recipes that contain the key or exactly matches it
+     * @return the list of recipes based on the search
+     */
     public ArrayList<Recipe> search(String key, Boolean contains){
         ArrayList<Recipe> ret = new ArrayList<>();
 
@@ -52,6 +72,11 @@ public class DataBase {
         return ret;
     }
 
+    /**
+     * filters the recipes in the database based on the filters given.
+     * @param filters the filters to filter by
+     * @return the list of recipes that fit the filter
+     */
     public ArrayList<Recipe> filter(ArrayList<String> filters){
         ArrayList<Recipe> ret = new ArrayList<>();
 
@@ -66,10 +91,18 @@ public class DataBase {
         return ret;
     }
 
+    /**
+     * gets all of the recipes in the database
+     * @return a list of all the recipes in the database
+     */
     public ArrayList<Recipe> getAll(){
         return db;
     }
 
+    /**
+     * loads in the recipes from the given file
+     * @param path the path to the file containing the recipes
+     */
     public void load(String path){
         try{
             FileInputStream fis = new FileInputStream(path);
@@ -93,6 +126,10 @@ public class DataBase {
         }
     }
 
+    /**
+     * saves the recipes to the file given
+     * @param path the path to the file
+     */
     public void save(String path){
         try{
             FileOutputStream fos = new FileOutputStream(path);
@@ -113,6 +150,10 @@ public class DataBase {
         }
     }
 
+    /**
+     * deletes the recipe at the given index
+     * @param index the index of the recipe to be deleted
+     */
     public void delete(int index){
         db.remove(index);
     }
